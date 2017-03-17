@@ -1,0 +1,102 @@
+//@import "var";
+@cols:12;
+@num1:1200px;
+@num2:900px;
+/*
+1. 流式
+2. 固定
+*/
+.container{
+  &-fluid{
+    width:100%;
+    .clear();
+    margin:auto;
+  }
+  &-fluid .row{
+    width:100%;
+    .clear();
+  }
+  &{
+    width:600px;
+    .clear();
+    margin:auto;
+  }
+  & .row{
+    width:100%;
+    .clear();
+  }
+}
+.for(s);
+.col-l-hide{
+  display: block;
+}
+.col-m-hide{
+  display: block;
+}
+.col-s-hide{
+  display: none;
+}
+@media screen and (min-width: @num2 ){
+  .for(m);
+  .container{
+    width:@num2;
+    margin:auto;
+  }
+  .col-l-hide{
+    display: block;
+  }
+  .col-s-hide{
+    display: block;
+  }
+  .col-m-hide{
+    display: none;
+  }
+}
+@media screen and (min-width: @num1 ){
+  .for(l);
+  .container{
+    width:@num1;
+    margin:auto;
+  }
+  .col-m-hide{
+    display: block;
+  }
+  .col-s-hide{
+    display: block;
+  }
+  .col-l-hide{
+    display: none;
+  }
+
+}
+.for(@type,@i:1) when (@i<=@cols){
+  .container>.row>.col-@{type}-@{i}{
+    width:@i/@cols*100%;
+    float: left;
+    position: relative;
+  }
+  .container>.row>.col-@{type}-offset-@{i}{
+    margin-left:@i/@cols*100% ;
+  }
+  .container>.row>.col-@{type}-push-@{i}{
+    left:@i/@cols*100%;
+  }
+  .container>.row>.col-@{type}-pull-@{i}{
+    left:-@i/@cols*100%;
+  }
+  .container-fluid>.row>.col-@{type}-@{i}{
+    width:@i/@cols*100%;
+    float: left;
+  }
+  .for(@type,@i:@i+1);
+}
+
+.clear(){
+  &{
+    &:before,&:after{
+      content:"";
+      display:none;
+      clear: both;
+    }
+  }
+}
